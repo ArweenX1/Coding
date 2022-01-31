@@ -1,11 +1,14 @@
 {
-	"folders": [
-		{
-			"path": "Python-Business-Analyst"
-		},
-		{
-			"path": "mySQL-Corporation-RDBMS"
-		}
-	],
-	"settings": {}
+  "folders": [
+    {
+      "path": "Python-Business-Analyst"
+    },
+    {
+      "path": "mySQL-Corporation-RDBMS"
+    },
+    {
+      "path": "Leetcode-1-master\\database"
+    }
+  ],
+  "settings": {}
 }
