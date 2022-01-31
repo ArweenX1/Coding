@@ -22,9 +22,23 @@
 -- | 3.65  | 3    |
 -- | 3.50  | 4    |
 -- +-------+------+
-
 -- # Write your MySQL query statement below
-select Score,
-    (select count(distinct Score) from Scores where Score >= s.Score) Rank
-from Scores s
-order by Score desc
+SELECT
+  scores.score,
+  count(ranking.score) as rank
+from
+  scores,
+select
+  Score,
+  (
+    select
+      count(distinct Score)
+    from
+      Scores
+    where
+      Score >= s.Score
+  ) Rank
+from
+  Scores s
+order by
+  Score desc

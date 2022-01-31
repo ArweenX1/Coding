@@ -41,11 +41,52 @@
 --| 2013-10-03 |       0.50        |
 --+------------+-------------------+
 --Credits:
---Special thanks to @cak1erlizhou for contributing this question, writing the problem description and adding part of the test cases.
-
-select t.Request_at as Day,
-round(sum(case when t.Status like 'cancelled_%' then 1 else 0 end)/count(*), 2) as 'Cancellation Rate'
-from Trips t
-inner join Users u
-on t.Client_Id = u.Users_Id and u.Banned = 'No'
-where t.Request_at between '2013-10-01' and '2013-10-03' group by t.Request_at
+--Special thanks to @cak1erlizhou for contributing this question, writing the problem description and adding part of the test cases
+SELECT
+  request_at AS Day,
+  ROUNDSUM(IF(Status != "completed", 1, 0)) / COUNT(Status),
+  2
+) AS "Cancellation Rate"
+FROM
+  Trips
+WHERE
+  Request_at BETWEEN "2012-10-01"
+  AND "2012-10-03"
+  AND Client_id NOT IN (
+    SELECT
+      User_id
+    FROM
+      Users
+    Where
+      Banned = "Yes"
+  )
+  AND Driver_id NOT IN (
+    SELECT
+      User_id
+    FROM
+      Users
+    Where
+      Banned = "Yes"
+  )
+GROUP BY
+  request_at.
+select
+  t.Request_at as Day,
+  round(
+    sum(
+      case
+        when t.Status like 'cancelled_%' then 1
+        else 0
+      end
+    ) / count(*),
+    2
+  ) as 'Cancellation Rate'
+from
+  Trips t
+  inner join Users u on t.Client_Id = u.Users_Id
+  and u.Banned = 'No'
+where
+  t.Request_at between '2013-10-01'
+  and '2013-10-03'
+group by
+  t.Request_at

@@ -16,6 +16,15 @@
 -- | 1  | john@example.com |
 -- | 2  | bob@example.com  |
 -- +----+------------------+
-
 -- # Write your MySQL query statement below
-delete p1 from Person p1, Person p2 where p1.Email = p2.Email and p1.Id > p2.Id
+DELETE p2
+FROM
+  person p1
+  JOIN person p2 ON p1.Email = p2.Email
+  AND p1.id < p2.id delete p1
+from
+  Person p1,
+  Person p2
+where
+  p1.Email = p2.Email
+  and p1.Id > p2.Id

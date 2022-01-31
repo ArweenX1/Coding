@@ -15,6 +15,17 @@
 -- |  2 |
 -- |  4 |
 -- +----+
-
-
-select w1.Id from Weather w1, Weather w2 where w1.Temperature > w2.Temperature and to_days(w1.Date) - to_days(w2.date) = 1;
+SELECT
+  W2.ID
+from
+  weather w1
+  inner join weather W2 on w2.Date = DATE_ADD(W2.date, Interval -1 day)
+  and w2.Temperature > w1.Temperature;
+select
+  w1.Id
+from
+  Weather w1,
+  Weather w2
+where
+  w1.Temperature > w2.Temperature
+  and to_days(w1.Date) - to_days(w2.date) = 1;
